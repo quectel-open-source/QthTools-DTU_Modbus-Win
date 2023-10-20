@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>900</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>QthTools-DTU modbus桌面配置工具</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QSplitter" name="splitter_main">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="QWidget" name="widget_list" native="true"/>
+      <widget class="QWidget" name="widget_dev" native="true">
+       <layout class="QGridLayout" name="gridLayout_2">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="QTabWidget" name="tabWidget">
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <widget class="QWidget" name="tab_1">
+           <attribute name="title">
+            <string>添加设备(+)</string>
+           </attribute>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>900</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>工作区</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="action_inputProject"/>
+    <addaction name="action_outputProject"/>
+    <addaction name="action_clearProject"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>配置文件</string>
+    </property>
+    <addaction name="action_output"/>
+   </widget>
+   <widget class="QMenu" name="menu_3">
+    <property name="title">
+     <string>下载</string>
+    </property>
+    <addaction name="action_down"/>
+   </widget>
+   <widget class="QMenu" name="menu_4">
+    <property name="title">
+     <string>帮助</string>
+    </property>
+    <addaction name="action_doc"/>
+    <addaction name="action_feedback"/>
+    <addaction name="action_update"/>
+    <addaction name="action_about"/>
+   </widget>
+   <widget class="QMenu" name="menu_5">
+    <property name="title">
+     <string>语言</string>
+    </property>
+    <addaction name="action_chinese"/>
+    <addaction name="action_english"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
+   <addaction name="menu_3"/>
+   <addaction name="menu_5"/>
+   <addaction name="menu_4"/>
+  </widget>
+  <action name="action_inputProject">
+   <property name="text">
+    <string>打开</string>
+   </property>
+  </action>
+  <action name="action_outputProject">
+   <property name="text">
+    <string>保存</string>
+   </property>
+  </action>
+  <action name="action_output">
+   <property name="text">
+    <string>生成配置文件</string>
+   </property>
+  </action>
+  <action name="action_clearProject">
+   <property name="text">
+    <string>清空</string>
+   </property>
+  </action>
+  <action name="action_down">
+   <property name="text">
+    <string>串口下载</string>
+   </property>
+  </action>
+  <action name="action_doc">
+   <property name="text">
+    <string>使用文档</string>
+   </property>
+  </action>
+  <action name="action_feedback">
+   <property name="text">
+    <string>问题反馈</string>
+   </property>
+  </action>
+  <action name="action_about">
+   <property name="text">
+    <string>关于</string>
+   </property>
+  </action>
+  <action name="action_update">
+   <property name="text">
+    <string>升级</string>
+   </property>
+  </action>
+  <action name="action_chinese">
+   <property name="text">
+    <string>中文</string>
+   </property>
+  </action>
+  <action name="action_english">
+   <property name="text">
+    <string>English</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

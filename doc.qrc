@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/">
+        <file>help/image/wpsDDC1.tmp.jpg</file>
+        <file>help/image/wpsDDC2.tmp.png</file>
+        <file>help/image/wpsDDD2.tmp.jpg</file>
+        <file>help/image/wpsDDD3.tmp.jpg</file>
+        <file>help/image/wpsDDD4.tmp.jpg</file>
+        <file>help/image/wpsDDD5.tmp.jpg</file>
+        <file>help/image/wpsDDD6.tmp.jpg</file>
+        <file>help/image/wpsDDD7.tmp.jpg</file>
+        <file>help/image/wpsDDD8.tmp.jpg</file>
+        <file>help/image/wpsDDD9.tmp.jpg</file>
+        <file>help/image/wpsDDDA.tmp.jpg</file>
+        <file>help/image/wpsDDDB.tmp.jpg</file>
+        <file>help/image/wpsDDDC.tmp.jpg</file>
+        <file>help/image/wpsDDDD.tmp.jpg</file>
+        <file>help/image/wpsDDDE.tmp.jpg</file>
+        <file>help/image/wpsDDEF.tmp.jpg</file>
+        <file>doc/useDoc.chm</file>
+    </qresource>
+</RCC>

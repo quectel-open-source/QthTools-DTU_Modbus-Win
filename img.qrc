@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/down-arrow.png</file>
+        <file>img/left-arrow.png</file>
+        <file>img/unchecked_0.png</file>
+        <file>img/unchecked_1.png</file>
+        <file>img/unchecked_2.png</file>
+        <file>img/unchecked_3.png</file>
+        <file>img/unchecked_4.png</file>
+        <file>img/unchecked_5.png</file>
+        <file>img/unchecked_6.png</file>
+        <file>img/unchecked_7.png</file>
+        <file>img/unchecked_8.png</file>
+        <file>img/unchecked_9.png</file>
+        <file>img/unchecked_10.png</file>
+        <file>img/unchecked_11.png</file>
+        <file>img/unchecked_12.png</file>
+        <file>img/unchecked_13.png</file>
+        <file>img/unchecked_14.png</file>
+        <file>img/unchecked_15.png</file>
+        <file>img/event.png</file>
+    </qresource>
+</RCC>
