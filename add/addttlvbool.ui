@@ -1,0 +1,736 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>addTtlvBool</class>
+ <widget class="QWidget" name="addTtlvBool">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>411</width>
+    <height>308</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <item row="1" column="0" colspan="4">
+    <widget class="QCheckBox" name="checkBox_event">
+     <property name="text">
+      <string>配置事件</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="3">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>124</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_type">
+     <property name="text">
+      <string>事件类型</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="2">
+    <widget class="QRadioButton" name="radioButton_true">
+     <property name="text">
+      <string>true</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_name">
+     <property name="minimumSize">
+      <size>
+       <width>75</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>75</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>事件名称</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_condition">
+     <property name="text">
+      <string>触发条件</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1" colspan="3">
+    <widget class="QLineEdit" name="event_name">
+     <property name="maxLength">
+      <number>64</number>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="4">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="minimumSize">
+        <size>
+         <width>75</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>75</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>比特地址</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QCheckBox" name="checkBox_15">
+           <property name="styleSheet">
+            <string notr="true">QCheckBox{
+    spacing: 5px;
+}
+
+QCheckBox::indicator{
+    width: 30px;
+    height: 30px;
+}
+
+QCheckBox::indicator:unchecked{
+	image:url(:/img/unchecked_15.png);
+	background-color: rgb(255, 255, 255);
+}
+
+QCheckBox::indicator:checked{
+	image:url(:/img/unchecked_15.png);
+	background-color: rgb(36, 169, 225);
+}
+
+QCheckBox::indicator:disabled{
+	image:url(:/img/unchecked_15.png);
+	background-color: rgb(151, 151, 151);
+}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_14">
+           <property name="styleSheet">
+            <string notr="true">QCheckBox{
+    spacing: 5px;
+}
+
+QCheckBox::indicator{
+    width: 30px;
+    height: 30px;
+}
+
+QCheckBox::indicator:unchecked{
+	image:url(:/img/unchecked_14.png);
+	background-color: rgb(255, 255, 255);
+}
+
+QCheckBox::indicator:checked{
+	image:url(:/img/unchecked_14.png);
+	background-color: rgb(36, 169, 225);
+}
+
+QCheckBox::indicator:disabled{
+	image:url(:/img/unchecked_14.png);
+	background-color: rgb(151, 151, 151);
+}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_13">
+           <property name="styleSheet">
+            <string notr="true">QCheckBox{
+    spacing: 5px;
+}
+
+QCheckBox::indicator{
+    width: 30px;
+    height: 30px;
+}
+
+QCheckBox::indicator:unchecked{
+	image:url(:/img/unchecked_13.png);
+	background-color: rgb(255, 255, 255);
+}
+
+QCheckBox::indicator:checked{
+	image:url(:/img/unchecked_13.png);
+	background-color: rgb(36, 169, 225);
+}
+
+QCheckBox::indicator:disabled{
+	image:url(:/img/unchecked_13.png);
+	background-color: rgb(151, 151, 151);
+}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_12">
+           <property name="styleSheet">
+            <string notr="true">QCheckBox{
+    spacing: 5px;
+}
+
+QCheckBox::indicator{
+    width: 30px;
+    height: 30px;
+}
+
+QCheckBox::indicator:unchecked{
+	image:url(:/img/unchecked_12.png);
+	background-color: rgb(255, 255, 255);
+}
+
+QCheckBox::indicator:checked{
+	image:url(:/img/unchecked_12.png);
+	background-color: rgb(36, 169, 225);
+}
+
+QCheckBox::indicator:disabled{
+	image:url(:/img/unchecked_12.png);
+	background-color: rgb(151, 151, 151);
+}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_11">
+           <property name="styleSheet">
+            <string notr="true">QCheckBox{
+    spacing: 5px;
+}
+
+QCheckBox::indicator{
+    width: 30px;
+    height: 30px;
+}
+
+QCheckBox::indicator:unchecked{
+	image:url(:/img/unchecked_11.png);
+	background-color: rgb(255, 255, 255);
+}
+
+QCheckBox::indicator:checked{
+	image:url(:/img/unchecked_11.png);
+	background-color: rgb(36, 169, 225);
+}
+
+QCheckBox::indicator:disabled{
+	image:url(:/img/unchecked_11.png);
+	background-color: rgb(151, 151, 151);
+}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_10">
+           <property name="styleSheet">
+            <string notr="true">QCheckBox{
+    spacing: 5px;
+}
+
+QCheckBox::indicator{
+    width: 30px;
+    height: 30px;
+}
+
+QCheckBox::indicator:unchecked{
+	image:url(:/img/unchecked_10.png);
+	background-color: rgb(255, 255, 255);
+}
+
+QCheckBox::indicator:checked{
+	image:url(:/img/unchecked_10.png);
+	background-color: rgb(36, 169, 225);
+}
+
+QCheckBox::indicator:disabled{
+	image:url(:/img/unchecked_10.png);
+	background-color: rgb(151, 151, 151);
+}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_9">
+           <property name="styleSheet">
+            <string notr="true">QCheckBox{
+    spacing: 5px;
+}
+
+QCheckBox::indicator{
+    width: 30px;
+    height: 30px;
+}
+
+QCheckBox::indicator:unchecked{
+	image:url(:/img/unchecked_9.png);
+	background-color: rgb(255, 255, 255);
+}
+
+QCheckBox::indicator:checked{
+	image:url(:/img/unchecked_9.png);
+	background-color: rgb(36, 169, 225);
+}
+
+QCheckBox::indicator:disabled{
+	image:url(:/img/unchecked_9.png);
+	background-color: rgb(151, 151, 151);
+}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_8">
+           <property name="styleSheet">
+            <string notr="true">QCheckBox{
+    spacing: 5px;
+}
+
+QCheckBox::indicator{
+    width: 30px;
+    height: 30px;
+}
+
+QCheckBox::indicator:unchecked{
+	image:url(:/img/unchecked_8.png);
+	background-color: rgb(255, 255, 255);
+}
+
+QCheckBox::indicator:checked{
+	image:url(:/img/unchecked_8.png);
+	background-color: rgb(36, 169, 225);
+}
+
+QCheckBox::indicator:disabled{
+	image:url(:/img/unchecked_8.png);
+	background-color: rgb(151, 151, 151);
+}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QCheckBox" name="checkBox_7">
+           <property name="styleSheet">
+            <string notr="true">QCheckBox{
+    spacing: 5px;
+}
+
+QCheckBox::indicator{
+    width: 30px;
+    height: 30px;
+}
+
+QCheckBox::indicator:unchecked{
+	image:url(:/img/unchecked_7.png);
+	background-color: rgb(255, 255, 255);
+}
+
+QCheckBox::indicator:checked{
+	image:url(:/img/unchecked_7.png);
+	background-color: rgb(36, 169, 225);
+}
+
+QCheckBox::indicator:disabled{
+	image:url(:/img/unchecked_7.png);
+	background-color: rgb(151, 151, 151);
+}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_6">
+           <property name="styleSheet">
+            <string notr="true">QCheckBox{
+    spacing: 5px;
+}
+
+QCheckBox::indicator{
+    width: 30px;
+    height: 30px;
+}
+
+QCheckBox::indicator:unchecked{
+	image:url(:/img/unchecked_6.png);
+	background-color: rgb(255, 255, 255);
+}
+
+QCheckBox::indicator:checked{
+	image:url(:/img/unchecked_6.png);
+	background-color: rgb(36, 169, 225);
+}
+
+QCheckBox::indicator:disabled{
+	image:url(:/img/unchecked_6.png);
+	background-color: rgb(151, 151, 151);
+}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_5">
+           <property name="styleSheet">
+            <string notr="true">QCheckBox{
+    spacing: 5px;
+}
+
+QCheckBox::indicator{
+    width: 30px;
+    height: 30px;
+}
+
+QCheckBox::indicator:unchecked{
+	image:url(:/img/unchecked_5.png);
+	background-color: rgb(255, 255, 255);
+}
+
+QCheckBox::indicator:checked{
+	image:url(:/img/unchecked_5.png);
+	background-color: rgb(36, 169, 225);
+}
+
+QCheckBox::indicator:disabled{
+	image:url(:/img/unchecked_5.png);
+	background-color: rgb(151, 151, 151);
+}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_4">
+           <property name="styleSheet">
+            <string notr="true">QCheckBox{
+    spacing: 5px;
+}
+
+QCheckBox::indicator{
+    width: 30px;
+    height: 30px;
+}
+
+QCheckBox::indicator:unchecked{
+	image:url(:/img/unchecked_4.png);
+	background-color: rgb(255, 255, 255);
+}
+
+QCheckBox::indicator:checked{
+	image:url(:/img/unchecked_4.png);
+	background-color: rgb(36, 169, 225);
+}
+
+QCheckBox::indicator:disabled{
+	image:url(:/img/unchecked_4.png);
+	background-color: rgb(151, 151, 151);
+}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_3">
+           <property name="styleSheet">
+            <string notr="true">QCheckBox{
+    spacing: 5px;
+}
+
+QCheckBox::indicator{
+    width: 30px;
+    height: 30px;
+}
+
+QCheckBox::indicator:unchecked{
+	image:url(:/img/unchecked_3.png);
+	background-color: rgb(255, 255, 255);
+}
+
+QCheckBox::indicator:checked{
+	image:url(:/img/unchecked_3.png);
+	background-color: rgb(36, 169, 225);
+}
+
+QCheckBox::indicator:disabled{
+	image:url(:/img/unchecked_3.png);
+	background-color: rgb(151, 151, 151);
+}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_2">
+           <property name="styleSheet">
+            <string notr="true">QCheckBox{
+    spacing: 5px;
+}
+
+QCheckBox::indicator{
+    width: 30px;
+    height: 30px;
+}
+
+QCheckBox::indicator:unchecked{
+	image:url(:/img/unchecked_2.png);
+	background-color: rgb(255, 255, 255);
+}
+
+QCheckBox::indicator:checked{
+	image:url(:/img/unchecked_2.png);
+	background-color: rgb(36, 169, 225);
+}
+
+QCheckBox::indicator:disabled{
+	image:url(:/img/unchecked_2.png);
+	background-color: rgb(151, 151, 151);
+}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_1">
+           <property name="styleSheet">
+            <string notr="true">QCheckBox{
+    spacing: 5px;
+}
+
+QCheckBox::indicator{
+    width: 30px;
+    height: 30px;
+}
+
+QCheckBox::indicator:unchecked{
+	image:url(:/img/unchecked_1.png);
+	background-color: rgb(255, 255, 255);
+}
+
+QCheckBox::indicator:checked{
+	image:url(:/img/unchecked_1.png);
+	background-color: rgb(36, 169, 225);
+}
+
+QCheckBox::indicator:disabled{
+	image:url(:/img/unchecked_1.png);
+	background-color: rgb(151, 151, 151);
+}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_0">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QCheckBox{
+    spacing: 5px;
+}
+
+QCheckBox::indicator{
+    width: 30px;
+    height: 30px;
+}
+
+QCheckBox::indicator:unchecked{
+	image:url(:/img/unchecked_0.png);
+	background-color: rgb(255, 255, 255);
+}
+
+QCheckBox::indicator:checked{
+	image:url(:/img/unchecked_0.png);
+	background-color: rgb(36, 169, 225);
+}
+
+QCheckBox::indicator:disabled{
+	image:url(:/img/unchecked_0.png);
+	background-color: rgb(151, 151, 151);
+}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+           <property name="tristate">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="1" colspan="3">
+    <widget class="QComboBox" name="event_type">
+     <item>
+      <property name="text">
+       <string>信息</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>告警</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>故障</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QRadioButton" name="radioButton_false">
+     <property name="text">
+      <string>false</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
