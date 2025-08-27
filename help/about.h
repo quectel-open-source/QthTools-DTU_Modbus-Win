@@ -35,7 +35,7 @@ public:
 private:
     Ui::about *ui;
 
-#define APP_SOFT_VER "2.3.4"
+#define APP_SOFT_VER "2.4.0"
 };
 
 #endif // ABOUT_H
