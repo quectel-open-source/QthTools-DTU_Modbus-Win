@@ -7,7 +7,7 @@ set dstProgramName=%2
 set srcProgramPath=%3
 set srcProgramName=%4
 
-echo "%dstProgramPath%\%dstProgramName%"
+echo "%dstProgramPath%%dstProgramName%"
 echo "%srcProgramPath%\%srcProgramName%"
 
 rem timeout /T 3 /NOBREAK
@@ -15,7 +15,7 @@ choice /t 1 /d y /n >nul
 
 
 rem :killProc
-rem taskkill /F /IM %srcProgramName%
+taskkill /F /IM %srcProgramName%
 
 del /q "%srcProgramName%"
 

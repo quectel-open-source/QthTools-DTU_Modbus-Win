@@ -109,8 +109,18 @@ void toolUpdate::displayAppcast(const QString &url, const QByteArray &reply)
 
 static void runBat(QString dstBatPath,QStringList arg)
 {
-    QProcess *p= new QProcess();
-    p->startDetached(dstBatPath,arg);
+    // 将bat文件路径和参数合并为一个命令行字符串
+    QString command = QString("%1 %2").arg(dstBatPath).arg(arg.join(" "));
+    qDebug() << "Running command:" << command;
+
+    // 创建并设置QProcess
+    QProcess *p = new QProcess();
+    p->setWorkingDirectory(vitalFilePath);
+    p->setProgram("cmd.exe");
+    p->setArguments(QStringList() << "/c" << command);
+
+    // 启动进程
+    qDebug() << p->startDetached();
     QApplication::quit();
 }
 
@@ -130,15 +140,21 @@ void toolUpdate::updataExeEvent(QString newSoftName)
         return;
     }
 
-    QString dstBatPath = QDir::currentPath()+"/restart.bat";
-    if(!QFile::copy(":/restart.bat",dstBatPath) || !QFile(dstBatPath).exists())
+    QString dstBatPath = moveExePath + "restart.bat";
+    qDebug() << "dstBatPath: " << dstBatPath;
+    qDebug() << "dstBatPath is exists: " << QFile(dstBatPath).exists();
+    if (!QFile(dstBatPath).exists())
     {
-        qDebug()<<"bat文件丢失";
+        if (!QFile::copy(":/restart.bat",dstBatPath))
+        {
+            qDebug()<<"bat文件丢失";
+        }
     }
     qDebug().noquote()<<"moveExePath2:"<<QDir::toNativeSeparators(moveExePath);
     qDebug().noquote()<<"tagetExePath2:"<<QDir::toNativeSeparators(tagetExePath);
     QStringList arg;
-    arg<<QDir::toNativeSeparators(moveExePath)<<newSoftName<<QDir::toNativeSeparators(tagetExePath)<<QApplication::applicationFilePath().split("/").last();
+    arg<<QDir::toNativeSeparators(moveExePath)<<newSoftName<<QDir::toNativeSeparators(tagetExePath)
+            <<QApplication::applicationFilePath().split("/").last();
     qDebug()<<"arg:"<<arg;
     runBat(dstBatPath,arg);
 
