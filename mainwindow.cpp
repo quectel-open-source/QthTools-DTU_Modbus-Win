@@ -506,12 +506,14 @@ void MainWindow::on_action_inputProject_triggered()
         return;
     }
 
+    qDebug() << "set Permissions result 1:" << QFile::setPermissions(configfile, QFileDevice::ReadOwner | QFileDevice::WriteOwner | QFileDevice::ExeOwner);
     QFile::remove(configfile);
     if(!QFile::copy(file,configfile))
     {
         QMessageBox::information(this,tr("错误"),tr("文件拷贝失败"),tr("确认"));
         return;
     }
+    qDebug() << "set Permissions result 2:" << QFile::setPermissions(configfile, QFileDevice::ReadOwner | QFileDevice::WriteOwner | QFileDevice::ExeOwner);
 
     if (checkFeatureLabel())
     {

@@ -592,6 +592,7 @@ void PreQTableWidget::slotActionRemoveBack()
 */
 void PreQTableWidget::slotActionModify()
 {
+    qDebug() << __FUNCTION__;
     QModelIndex index = this->indexAt(actionPos);
     int row = index.row();
     int column = index.column();
@@ -692,19 +693,19 @@ void PreQTableWidget::slotActionRemove()
     {
         QString name = ((QLabel *)currentLabel)->text();
         int bit = ((QLabel *)currentLabel)->toolTip().toInt();
+        QString key;
         for (int i = 0; i < box->layout()->count(); i++)
         {
             QLayoutItem *item = box->layout()->itemAt(i);
             if(currentLabel == item->widget())
             {
                 /* 保存到配置文件 */
+                qDebug()<<" remove 11111111111 ";
                 QTabWidget *tab1 = (QTabWidget *)toolkit.findParent(box,"QTabWidget",nullptr);
                 QTabWidget *tab2 = (QTabWidget *)toolkit.findParent(tab1,"QTabWidget",nullptr);
                 PreQTableWidget *table = (PreQTableWidget *)toolkit.findParent(box,"PreQTableWidget",nullptr);
                 qDebug()<<tab1->tabText(tab1->currentIndex());
                 qDebug()<<tab2->tabText(tab2->currentIndex());
-
-                QString key;
                 if (tab1->tabText(tab1->currentIndex()) == tr("线圈"))
                 {
                     key = "dev/"+tab2->tabText(tab2->currentIndex())+"/register/线圈/"+table->objectName()+"/"+name;
@@ -743,8 +744,10 @@ void PreQTableWidget::slotActionRemove()
                 }
                 else
                 {
+                    qDebug()<<" remove key "<<key;
                     toolkit.removeFormConfig(key);
                     QString removeTtlv = "ttlv/" + name;
+                    qDebug()<<" remove removeTtlv "<<removeTtlv;
                     toolkit.removeFormConfig(removeTtlv);
                 }
                 /* 删除控件 */
@@ -756,11 +759,27 @@ void PreQTableWidget::slotActionRemove()
         int rowSpan = this->rowSpan(row,column);
         if(1 == rowSpan)
         {
-            QPushButton *pushButton = new QPushButton("+");
             QObject *obj = toolkit.findParent(this,"addRegisterForm",nullptr);
-            connect(pushButton,SIGNAL(clicked(bool)),obj,SLOT(addTtlvSlot(bool)));
-            if(0 == box->layout()->count())
+            if(1 == box->layout()->count())
             {
+                QPushButton *pushButton = nullptr;
+                pushButton = box->findChild<QPushButton *>();
+                if(pushButton == nullptr)
+                {
+                    pushButton = new QPushButton("+");
+                    connect(pushButton,SIGNAL(clicked(bool)),obj,SLOT(addTtlvNumBit8Slot(bool)));
+                    box->layout()->addWidget(pushButton);
+                }
+                else
+                {
+                  disconnect(pushButton, SIGNAL(clicked(bool)), nullptr, nullptr);
+                  connect(pushButton,SIGNAL(clicked(bool)),obj,SLOT(addTtlvSlot(bool)));
+                }
+            }
+            else if(0 == box->layout()->count())
+            {
+                QPushButton *pushButton = new QPushButton("+");
+                connect(pushButton,SIGNAL(clicked(bool)),obj,SLOT(addTtlvSlot(bool)));
                 box->layout()->addWidget(pushButton);
             }
         }
@@ -1065,7 +1084,7 @@ void PreQTableWidget::modRegisterTtlv(QString oldName,QString newName,QMap<QStri
                                     }
                                 }
 
-//                                QString path = "dev/"+devTab->tabText(devIndex)+"/register/"+regTab->tabText(regIndex)+"/"+table->objectName()+"/";
+//                              QString path = "dev/"+devTab->tabText(devIndex)+"/register/"+regTab->tabText(regIndex)+"/"+table->objectName()+"/";
                                 QMap<QString,QVariant> oldInfo = toolkit.readFormConfig(path+oldName);
                                 if(!oldInfo.isEmpty())
                                 {

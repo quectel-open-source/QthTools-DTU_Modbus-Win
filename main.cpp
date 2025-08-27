@@ -107,8 +107,7 @@ int main(int argc, char *argv[])
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setText("The application is already running.\n"
-            "Allowed to run only one instance of the application.");
+        msgBox.setText(QObject::tr("已有重复程序处于运行中状态！"));
         msgBox.exec();
         return 1;
     }

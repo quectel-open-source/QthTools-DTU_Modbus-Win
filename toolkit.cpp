@@ -93,10 +93,10 @@ void toolKit::writeFormConfig(QString name,QMap<QString,QVariant> info)
     configFile->readFile();
     QJsonObject configObj;
     QMap<QString, QVariant>::iterator iter = info.begin();
-//    qDebug()<<"写配置"<<name<<info;
+    qDebug()<<"写配置: "<< "name: " << name <<" info: " << info;
     while (iter != info.end())
     {
-//        qDebug()<<"写配置2"<<iter.key()<<iter.value()<<iter.value().toJsonValue();
+        qDebug()<<"写配置2"<<"key: "<< iter.key()<< "value:" <<iter.value()<<"jsonValue:" << iter.value().toJsonValue();
         configObj.insert(iter.key(),iter.value().toJsonValue());
         iter++;
     }
@@ -374,12 +374,15 @@ bool toolKit::ConfigTransformationToModule(QString filePath,QString current_date
         QJsonObject::Iterator it;
         for(it=configObj.begin();it!=configObj.end();it++)
         {
-            QString name = it.key();
             QJsonObject productObj = it.value().toObject();
             QString productKey = productObj.value("productKey").toString();
             QString productSecret = productObj.value("productSecret").toString();
             QString report = productObj.value("report").toString();
             QString devType = productObj.value("devType").toString();
+            int otaInvt = productObj.value("otaInvt").toInt();
+            moduleJson.insert(QString::number(QIOT_MBID_PK),productKey);
+            moduleJson.insert(QString::number(QIOT_MBID_PS),productSecret);
+            moduleJson.insert(QString::number(QIOT_MBID_OTA_INVT), otaInvt);
             if(report == "变化上报")
             {
                 moduleJson.insert(QString::number(QIOT_MBID_REPORT),0);
@@ -388,8 +391,6 @@ bool toolKit::ConfigTransformationToModule(QString filePath,QString current_date
             {
                 moduleJson.insert(QString::number(QIOT_MBID_REPORT),1);
             }
-            moduleJson.insert(QString::number(QIOT_MBID_PK),productKey);
-            moduleJson.insert(QString::number(QIOT_MBID_PS),productSecret);
             if (devType == "直连版")
             {
                 moduleJson.insert(QString::number(QIOT_MBID_DEV_TYPE),0);
@@ -419,7 +420,8 @@ bool toolKit::ConfigTransformationToModule(QString filePath,QString current_date
             QString parity = uartObj.value("parity").toString();
             QString stopBits = uartObj.value("stopBits").toString();
             int cmdInterval = uartObj.value("cmdInterval").toInt();
-            int pollingInterval = uartObj.value("pollingInterval").toInt();
+            int slowPollingInterval = uartObj.value("slowPollingInterval").toInt();
+            int fastPollingInterval = uartObj.value("fastPollingInterval").toInt();
             int resendCount = 2;
             if(uartObj.find("resendCount") != uartObj.end())
             {
@@ -476,7 +478,8 @@ bool toolKit::ConfigTransformationToModule(QString filePath,QString current_date
             {
                 newUartObj.insert(QString::number(QIOT_MBID_UART_PARITY),4);
             }
-            newUartObj.insert(QString::number(QIOT_MBID_UART_POLLITV),pollingInterval);
+            newUartObj.insert(QString::number(QIOT_MBID_UART_SLOW_POLLITV),slowPollingInterval);
+            newUartObj.insert(QString::number(QIOT_MBID_UART_FAST_POLLITV),fastPollingInterval);
             newUartObj.insert(QString::number(QIOT_MBID_UART_CMDITV),cmdInterval);
             newUartObj.insert(QString::number(QIOT_MBID_UART_RESENDCOUNT),resendCount);
             configArray.append(newUartObj);
@@ -617,7 +620,19 @@ bool toolKit::ConfigTransformationToModule(QString filePath,QString current_date
                                     devAddrTtlvDataObj.insert(QString::number(QIOT_MBID_REG_BITOFFSET),bitOffset);
                                 }
                             }
-                            else if(registerTtlvAttr.value("type").toString() == "数值" || registerTtlvAttr.value("type").toString() == "枚举")
+                            else if(registerTtlvAttr.value("type").toString() == "数值")
+                            {
+                                devAddrTtlvDataObj.insert(QString::number(QIOT_MBID_REG_BYTEOFFSET),row*2);
+                                if(registerTtlvAttr.value("HALBytes").toString() == "高8位")
+                                {
+                                    devAddrTtlvDataObj.insert(QString::number(QIOT_MBID_REG_BITOFFSET),8);
+                                }
+                                else
+                                {
+                                    devAddrTtlvDataObj.insert(QString::number(QIOT_MBID_REG_BITOFFSET),0);
+                                }
+                            }
+                            else if(registerTtlvAttr.value("type").toString() == "枚举")
                             {
                                 devAddrTtlvDataObj.insert(QString::number(QIOT_MBID_REG_BYTEOFFSET),row*2);
                                 devAddrTtlvDataObj.insert(QString::number(QIOT_MBID_REG_BITOFFSET),0);
@@ -627,22 +642,26 @@ bool toolKit::ConfigTransformationToModule(QString filePath,QString current_date
                                 int len = registerTtlvAttr.value("len").toInt();
                                 devAddrTtlvDataObj.insert(QString::number(QIOT_MBID_REG_BYTEOFFSET),row*2);
                                 devAddrTtlvDataObj.insert(QString::number(QIOT_MBID_REG_BITOFFSET),0);
+                                qDebug() << "字节流 devAddrTtlvDataObj: " << devAddrTtlvDataObj;
                             }
                             devAddrTtlvDataObj.insert(QString::number(QIOT_MBID_MODEL_ID),tslId);
                             devAddrTtlvDataObj.insert(QString::number(QIOT_MBID_TSLID),tslId++);
                             if(registerTtlvAttr.value("subType").toString().indexOf("读") >= 0)
                             {
                                 devAddrTtlvDataArrayR.append(devAddrTtlvDataObj);
+                                qDebug() << "字节流 devAddrTtlvDataArrayR: " << devAddrTtlvDataArrayR;
                             }
                             if(registerTtlvAttr.value("subType").toString().indexOf("写") >= 0)
                             {
                                 if(span > 1)
                                 {
                                     devAddrTtlvDataArrayWM.append(devAddrTtlvDataObj);
+                                    qDebug() << "字节流 devAddrTtlvDataArrayWM: " << devAddrTtlvDataArrayWM;
                                 }
                                 else
                                 {
                                     devAddrTtlvDataArrayWO.append(devAddrTtlvDataObj);
+                                    qDebug() << "字节流 devAddrTtlvDataArrayWO: " << devAddrTtlvDataArrayWO;
                                 }
                             }
                         }
@@ -673,17 +692,21 @@ bool toolKit::ConfigTransformationToModule(QString filePath,QString current_date
                         {
                             devAddrTtlvObj.insert(QString::number(QIOT_MBID_REG_DATA),devAddrTtlvDataArrayR);
                             devDataFunArray0x03.append(devAddrTtlvObj);
+                            qDebug() << "字节流 devDataFunArray0x03: " << devDataFunArray0x03;
                         }
                         if(!devAddrTtlvDataArrayWO.isEmpty())
                         {
                             devAddrTtlvObj.insert(QString::number(QIOT_MBID_REG_DATA),devAddrTtlvDataArrayWO);
+                            qDebug() << "字节流 writeRegMode: " << writeRegMode;
                             if(0 == writeRegMode)
                             {
                                 devDataFunArray0x06.append(devAddrTtlvObj);
+                                qDebug() << "字节流 devDataFunArray0x03: " << devDataFunArray0x03;
                             }
                             else
                             {
                                 devDataFunArray0x10.append(devAddrTtlvObj);
+                                qDebug() << "字节流 devDataFunArray0x10: " << devDataFunArray0x10;
                             }
 
                         }
@@ -691,6 +714,7 @@ bool toolKit::ConfigTransformationToModule(QString filePath,QString current_date
                         {
                             devAddrTtlvObj.insert(QString::number(QIOT_MBID_REG_DATA),devAddrTtlvDataArrayWM);
                             devDataFunArray0x10.append(devAddrTtlvObj);
+                            qDebug() << "字节流 devDataFunArray0x10: " << devDataFunArray0x10;
                         }
                     }
                     else if(funcName == "输入寄存器")
@@ -836,6 +860,15 @@ bool toolKit::ConfigTransformationToModule(QString filePath,QString current_date
                 newUartObj.insert(QString::number(QIOT_MBID_MODEL_TYPE),"bool");
                 newUartObj.insert(QString::number(QIOT_MBID_MODEL_MULTIPLE),multiple.toDouble());
                 newUartObj.insert(QString::number(QIOT_MBID_MODEL_INCREMENT),increment.toDouble());
+                if(ttlvObj.value("HALBytes").toString() == "高8位")
+                {
+                    newUartObj.insert(QString::number(QIOT_MBID_MODEL_8BIT_TYPE),0);
+                    newUartObj.insert(QString::number(QIOT_MBID_MODEL_8BIT_TYPE),0);
+                }
+                else if(ttlvObj.value("HALBytes").toString() == "低8位")
+                {
+                     newUartObj.insert(QString::number(QIOT_MBID_MODEL_8BIT_TYPE),1);
+                }
                 if(byte_order == "大端模式")
                 {
                     newUartObj.insert(QString::number(QIOT_MBID_MODEL_BYTEORDER),0);
@@ -852,7 +885,15 @@ bool toolKit::ConfigTransformationToModule(QString filePath,QString current_date
                 {
                     newUartObj.insert(QString::number(QIOT_MBID_MODEL_BYTEORDER),3);
                 }
-                if(numType == "16位有符号整形")
+                if(numType == "8位有符号整形")
+                {
+                    newUartObj.insert(QString::number(QIOT_MBID_MODEL_TYPE),11);
+                }
+                else if(numType == "8位无符号整形")
+                {
+                    newUartObj.insert(QString::number(QIOT_MBID_MODEL_TYPE),12);
+                }
+                else if(numType == "16位有符号整形")
                 {
                     newUartObj.insert(QString::number(QIOT_MBID_MODEL_TYPE),0);
                 }
@@ -884,7 +925,7 @@ bool toolKit::ConfigTransformationToModule(QString filePath,QString current_date
                 {
                     newUartObj.insert(QString::number(QIOT_MBID_MODEL_TYPE),7);
                 }
-                else if(numType == "16进制有符号A.B型")
+                else if(numType == "16进制有符号AB型")
                 {
                     newUartObj.insert(QString::number(QIOT_MBID_MODEL_TYPE),10);
                 }
@@ -920,6 +961,25 @@ bool toolKit::ConfigTransformationToModule(QString filePath,QString current_date
                     {
                         newEventObj.insert(QString::number(QIOT_MBID_EVENT_MUN_MINI),eventConditionsObj.value("miniMum").toString().toDouble());
                         newEventObj.insert(QString::number(QIOT_MBID_EVENT_MUN_MAX),eventConditionsObj.value("maxMum").toString().toDouble());
+                        newEventObj.insert(QString::number(QIOT_MBID_EVENT_MUN_FLAG),eventConditionsObj.value("event_num_flag").toString().toInt());
+
+                        if(eventConditionsObj.contains("event_range_mode"))
+                        {
+                            QJsonObject eventOfrangeInfo;
+
+                            eventOfrangeInfo.insert(QString::number(QIOT_MBID_NEW_MUN_EVENT_MODE),eventConditionsObj.value("event_range_mode").toInt());
+                            eventOfrangeInfo.insert(QString::number(QIOT_MBID_NEW_MUN_EVENT_RANGE_MODE),eventConditionsObj.value("event_num_flag").toString().toInt());
+                            eventOfrangeInfo.insert(QString::number(QIOT_MBID_NEW_MUN_EVENT_RANGE_MUN_MINI),eventConditionsObj.value("miniMum").toString().toDouble());
+                            eventOfrangeInfo.insert(QString::number(QIOT_MBID_NEW_MUN_EVENT_RANGE_MUN_MAX),eventConditionsObj.value("maxMum").toString().toDouble());
+                            newEventObj.insert(QString::number(QIOT_MBID_NEW_EVENT_MUN_RANGE),eventOfrangeInfo);
+                        }
+                        if(eventConditionsObj.contains("event_change_mode"))
+                        {
+                            QJsonObject eventOfchangeInfo;
+                            eventOfchangeInfo.insert(QString::number(QIOT_MBID_NEW_MUN_EVENT_MODE),eventConditionsObj.value("event_change_mode").toInt());
+                            eventOfchangeInfo.insert(QString::number(QIOT_MBID_NEW_MUN_EVENT_CHANGE_MUN),eventConditionsObj.value("changeNum").toString().toDouble());
+                            newEventObj.insert(QString::number(QIOT_MBID_NEW_EVENT_MUN_CHANGE),eventOfchangeInfo);
+                        }
                     }
                     else if (type == "枚举")
                     {
@@ -957,6 +1017,11 @@ bool toolKit::ConfigTransformationToModule(QString filePath,QString current_date
     qDebug()<<"jsonData"<<qjsonData;
     if (NULL == ttlvHead || 0 == bufLen || NULL == newSfHD)
     {
+        if(NULL == ttlvHead)
+        {
+            qDebug()<<"ttlv is NULL"<<endl;
+        }
+        qDebug()<<"hello world"<<endl;
         qDebug()<<"警告"<<ttlvHead<<bufLen<<newSfHD;
         QMessageBox::information(0,QObject::tr("警告"),QObject::tr("文件创建失败，请稍后再试"),QObject::tr("确认"));
         if(NULL == newSfHD)
@@ -1491,7 +1556,17 @@ bool toolKit::ConfigTransformationToCloud(QString filePath,QString current_date)
                                 qDebug()<<"increment"<<increment<<dIncrement;
                                 qDebug()<<"multiple"<<multiple<<dMultiple;
                                 double min,max;
-                                if(numType == "16位有符号整形")
+                                if(numType == "8位有符号整形")
+                                {
+                                    min = -128*dMultiple+dIncrement;
+                                    max = 127*dMultiple+dIncrement;
+                                }
+                                else if(numType == "8位无符号整形")
+                                {
+                                     min = 0+dIncrement;
+                                     max = 255*dMultiple+dIncrement;
+                                }
+                                else if(numType == "16位有符号整形")
                                 {
                                     min = -32768*dMultiple+dIncrement;
                                     max = 32768*dMultiple+dIncrement;

@@ -19,5 +19,6 @@
         <file>img/unchecked_14.png</file>
         <file>img/unchecked_15.png</file>
         <file>img/event.png</file>
+        <file>img/tips.png</file>
     </qresource>
 </RCC>

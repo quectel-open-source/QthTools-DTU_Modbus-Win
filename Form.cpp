@@ -245,7 +245,7 @@ void Form::modUartResultSlot(QString oldName,QString newName,QMap<QString,QVaria
 */
 void Form::addTtlvResultSlot(QString name,QMap<QString,QVariant> info)
 {
-    qDebug()<<"addTtlvResultSlot"<<name<<info;
+    qDebug()<<"addTtlvResultSlot "<<"name: " << name <<" info: " << info;
     if(info.isEmpty())
     {
         toolkit.removeFormConfig("ttlv/"+name);
@@ -281,7 +281,7 @@ void Form::addTtlvResultSlot(QString name,QMap<QString,QVariant> info)
     ui->tableWidget->setRowCount(row+1);
     ui->tableWidget->setCellWidget(row,0,label);
     ui->tableWidget->ttlvList.insert(name,info);
-//    qDebug()<<"ttlvList"<<ui->tableWidget->ttlvList;
+    qDebug() << "ttlvList: " << ui->tableWidget->ttlvList;
     toolkit.writeFormConfig("ttlv/"+name,info);
 }
 
