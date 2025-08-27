@@ -17,6 +17,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 #include "addttlv.h"
 #include "ui_addttlv.h"
+#include "quecthing/ql_iotTtlv.h"
 #include "add/addttlvbool.h"
 #include "add/addttlvbyte.h"
 #include "add/addttlvnum.h"
@@ -29,8 +30,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QJsonObject>
 #include <QRadioButton>
 #include <QScrollArea>
+#include <QLabel>
+#include <QStandardItemModel>
+#include <QStandardItem>
 #include "preqtablewidget.h"
-
+#include <QSlider>
 addTtlv::addTtlv(QObject *obj,int type,QString name,QMap<QString,QVariant> info,int bitInfo,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::addTtlv)
@@ -101,6 +105,7 @@ addTtlv::addTtlv(QObject *obj,int type,QString name,QMap<QString,QVariant> info,
         else if (tab1->tabText(tab1->currentIndex()) == tr("保持寄存器"))
         {
             regInfo = devInfo.value(tab2->tabText(tab2->currentIndex())).toMap().value("register").toMap().value("保持寄存器").toMap().value(regTable->objectName()).toMap();
+            this->isHoldingReg = true;
         }
         else if (tab1->tabText(tab1->currentIndex()) == tr("输入寄存器"))
         {
@@ -144,6 +149,7 @@ addTtlv::addTtlv(QObject *obj,int type,QString name,QMap<QString,QVariant> info,
         if (info.value("type").toString() == "布尔值")
         {
             ui->comboBox_type->setCurrentText(tr("布尔值"));
+            this->isBoolType = true;
         }
         else if (info.value("type").toString() == "数值")
         {
@@ -165,10 +171,12 @@ addTtlv::addTtlv(QObject *obj,int type,QString name,QMap<QString,QVariant> info,
         else if (info.value("subType").toString() == "只写")
         {
             ui->comboBox_subType->setCurrentText(tr("只写"));
+            this->isWriteType = true;
         }
         else if (info.value("subType").toString() == "读写")
         {
             ui->comboBox_subType->setCurrentText(tr("读写"));
+            this->isWriteType = true;
         }
 //        ui->comboBox_subType->setCurrentText(info.value("subType").toString());
 
@@ -179,6 +187,12 @@ addTtlv::addTtlv(QObject *obj,int type,QString name,QMap<QString,QVariant> info,
                 ui->lineEdit_name->setEnabled(false);
             }
             page = new addTtlvBool(info,bitAddr,bitEnable);
+            connect(this, &addTtlv::showToolTipSignal, (addTtlvBool*)page, &addTtlvBool::showToolTipSlot);
+            connect(this, &addTtlv::hideToolTipSignal, (addTtlvBool*)page, &addTtlvBool::hideToolTipSlot);
+            if (this->isHoldingReg && this->isBoolType && this->isWriteType)
+            {
+                emit showToolTipSignal();
+            }
         }
         else if(info.value("type").toString() == "数值")
         {
@@ -196,7 +210,25 @@ addTtlv::addTtlv(QObject *obj,int type,QString name,QMap<QString,QVariant> info,
     }
     else
     {
+        PreQTableWidget *regTable = (PreQTableWidget *)toolkit.findParent(obj,"PreQTableWidget",nullptr);
+        QTabWidget *tab1 = (QTabWidget *)toolkit.findParent(regTable,"QTabWidget",nullptr);
+        if (tab1->tabText(tab1->currentIndex()) == tr("保持寄存器"))
+        {
+            this->isHoldingReg = true;
+        }
+        if(ui->comboBox_type->currentText() == tr("布尔值"))
+        {
+            this->isBoolType = true;
+        }
+        else
+        {
+            this->isBoolType = false;
+            this->isWriteType = false;
+        }
+
         page = new addTtlvBool(info,bitAddr,bitEnable);
+        connect(this, &addTtlv::showToolTipSignal, (addTtlvBool*)page, &addTtlvBool::showToolTipSlot);
+        connect(this, &addTtlv::hideToolTipSignal, (addTtlvBool*)page, &addTtlvBool::hideToolTipSlot);
         if (ui->comboBox_subType->currentText() == tr("只写"))
         {
             QCheckBox* checkBox_event = this->findChild<QCheckBox*>("checkBox_event");
@@ -217,6 +249,7 @@ addTtlv::~addTtlv()
 
 void addTtlv::comboBox_subType_currentIndexChanged(const QString &arg1)
 {
+    qInfo() << __FUNCTION__;
     if (arg1 == tr("只写"))
     {
         QCheckBox* checkBox_event = this->findChild<QCheckBox*>("checkBox_event");
@@ -254,6 +287,26 @@ void addTtlv::comboBox_subType_currentIndexChanged(const QString &arg1)
     {
         QCheckBox* checkBox_event = this->findChild<QCheckBox*>("checkBox_event");
         checkBox_event->setEnabled(true);
+    }
+
+    if (this->isBoolType)
+    {
+        if (arg1 == tr("只写") || arg1 == tr("读写"))
+        {
+            this->isWriteType = true;
+            if (this->isHoldingReg && this->isBoolType && this->isWriteType)
+            {
+                emit showToolTipSignal();
+            }
+        }
+        else
+        {
+            emit hideToolTipSignal();
+        }
+    }
+    else
+    {
+        emit hideToolTipSignal();
     }
 }
 
@@ -418,9 +471,20 @@ void addTtlv::on_buttonBox_accepted()
     {
         QComboBox* comboBox1 = this->findChild<QComboBox*>("comboBox_numType");
         QComboBox* comboBox2 = this->findChild<QComboBox*>("comboBox_order");
+        QComboBox* comboBox3 = this->findChild<QComboBox*>("comboBox_order_2");
         QDoubleSpinBox* spinBox1 = this->findChild<QDoubleSpinBox*>("doubleSpinBox_multiple");
         QDoubleSpinBox* spinBox2 = this->findChild<QDoubleSpinBox*>("doubleSpinBox_increment");
-        if (comboBox1->currentText() == tr("16位有符号整形"))
+        if(comboBox1->currentText() == tr("8位有符号整形"))
+        {
+             info.insert("numType", "8位有符号整形");
+             info.insert("HALBytes",comboBox3->currentText());
+        }
+        else if(comboBox1->currentText() == tr("8位无符号整形"))
+        {
+            info.insert("numType", "8位无符号整形");
+            info.insert("HALBytes",comboBox3->currentText());
+        }
+        else if (comboBox1->currentText() == tr("16位有符号整形"))
         {
             info.insert("numType", "16位有符号整形");
         }
@@ -452,9 +516,9 @@ void addTtlv::on_buttonBox_accepted()
         {
             info.insert("numType", "64位双精度浮点型");
         }
-        else if (comboBox1->currentText() == tr("16进制有符号A.B型"))
+        else if (comboBox1->currentText() == tr("16进制有符号AB型"))
         {
-            info.insert("numType", "16进制有符号A.B型");
+            info.insert("numType", "16进制有符号AB型");
         }
 
         if (comboBox2->currentText() == tr("大端模式"))
@@ -528,13 +592,61 @@ void addTtlv::on_buttonBox_accepted()
             QMap<QString,QVariant> conditionsInfo;
             QDoubleSpinBox *register_value_min = this->findChild<QDoubleSpinBox*>("register_value_min");
             QDoubleSpinBox *register_value_max = this->findChild<QDoubleSpinBox*>("register_value_max");
-            if (register_value_min->value() > register_value_max->value())
+            QComboBox *event_num_flag = this->findChild<QComboBox*>("event_num_flag");
+            QComboBox *event_range_mode = this->findChild<QComboBox*>("event_range_mode");
+            QComboBox *event_change_mode = this->findChild<QComboBox*>("event_change_mode");
+            QDoubleSpinBox *register_value_change = this->findChild<QDoubleSpinBox*>("register_value_change");
+            QCheckBox *evenCondtion1 = this->findChild<QCheckBox*>("FlagCondition1");
+            QCheckBox *evenCondtion2 = this->findChild<QCheckBox*>("FlagCondition2");
+            if(evenCondtion2->isChecked() == true && register_value_min->value() > register_value_max->value())
             {
                 QMessageBox::information(0,tr("添加功能失败"),tr("事件触发条件最小值不能大于最大值"),tr("确认"));
                 return;
             }
+            if(evenCondtion2->isChecked() == true && evenCondtion1->isChecked() == true && event_change_mode->currentIndex() != event_range_mode->currentIndex())
+            {
+                 QMessageBox::information(0,tr("添加功能失败"),tr("当前仅支持均为非必要和必要"),tr("确认"));
+                 return;
+            }
+            if(evenCondtion2->isChecked() == false && evenCondtion1->isChecked() == false)
+            {
+                QMessageBox::information(0,tr("添加功能失败"),tr("需要至少启用一个事件触发条件"),tr("确认"));
+                return;
+            }
+            conditionsInfo.insert("event_num_flag", QString::number(event_num_flag->currentIndex()));
             conditionsInfo.insert("miniMum", QString::number(register_value_min->value(), 'f', 6));
             conditionsInfo.insert("maxMum", QString::number(register_value_max->value(), 'f', 6));
+            conditionsInfo.insert("changeNum", QString::number(register_value_change->value(), 'f', 6));
+            if(evenCondtion1->isChecked() == true)
+            {
+                if(event_range_mode->currentText() == tr("非必要"))
+                {
+                    conditionsInfo.insert("event_range_mode", 1);
+                }
+                else if(event_range_mode->currentText() == tr("必要"))
+                {
+                    conditionsInfo.insert("event_range_mode", 2);
+                }
+            }
+            else
+            {
+                conditionsInfo.insert("event_range_mode", 0);
+            }
+            if(evenCondtion2->isChecked() == true)
+            {
+                if(event_change_mode->currentText() == tr("非必要"))
+                {
+                    conditionsInfo.insert("event_change_mode", 1);
+                }
+                else if(event_change_mode->currentText() == tr("必要"))
+                {
+                    conditionsInfo.insert("event_change_mode", 2);
+                }
+            }
+            else
+            {
+                conditionsInfo.insert("event_change_mode", 0);
+            }
             eventInfo.insert("eventConditions", conditionsInfo);
         }
         info.insert("event", eventInfo);
@@ -870,11 +982,13 @@ void addTtlv::on_buttonBox_rejected()
 
 void addTtlv::comboBox_type_currentIndexChanged(const QString &arg1)
 {
-    qDebug()<<"on_comboBox_type_currentIndexChanged";
+    qInfo() << __FUNCTION__;
     QWidget *page = NULL;
     if(arg1 == tr("布尔值"))
     {
         page = new addTtlvBool(QMap<QString,QVariant>(),bitAddr,bitEnable);
+        connect(this, &addTtlv::showToolTipSignal, (addTtlvBool*)page, &addTtlvBool::showToolTipSlot);
+        connect(this, &addTtlv::hideToolTipSignal, (addTtlvBool*)page, &addTtlvBool::hideToolTipSlot);
     }
     else if(arg1 == tr("数值"))
     {
@@ -894,5 +1008,14 @@ void addTtlv::comboBox_type_currentIndexChanged(const QString &arg1)
     }
     toolkit.clearLayout(listLayout);
     listLayout->addWidget(page);
+    if(arg1 == tr("布尔值"))
+    {
+        this->isBoolType = true;
+    }
+    else
+    {
+        this->isBoolType = false;
+        this->isWriteType = false;
+    }
     comboBox_subType_currentIndexChanged(ui->comboBox_subType->currentText());
 }

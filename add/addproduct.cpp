@@ -43,7 +43,15 @@ addProduct::addProduct(QString name,QMap<QString,QVariant> info,QWidget *parent)
         ui->lineEdit_name->setText(name);
         ui->lineEdit_pk->setText(info.find("productKey").value().toString());
         ui->lineEdit_ps->setText(info.find("productSecret").value().toString());
-
+        /* 如果不存在otaInvt, 设置默认值24 */
+        if (info.find("otaInvt") == info.end())
+        {
+            ui->spinBox_otaPollInterval->setValue(24);
+        }
+        else
+        {
+            ui->spinBox_otaPollInterval->setValue(info.find("otaInvt").value().toInt());
+        }
         if (info.find("report").value().toString() == "变化上报")
         {
             ui->comboBox_report->setCurrentText(tr("变化上报"));
@@ -61,8 +69,6 @@ addProduct::addProduct(QString name,QMap<QString,QVariant> info,QWidget *parent)
         {
             ui->comboBox_devType->setCurrentText(tr("网关版"));
         }
-//        ui->comboBox_report->setCurrentText(info.find("report").value().toString());
-//        ui->comboBox_devType->setCurrentText(info.find("devType").value().toString());
     }
 }
 
@@ -91,6 +97,7 @@ void addProduct::on_buttonBox_accepted()
     QMap<QString,QVariant> info;
     info.insert("productKey",ui->lineEdit_pk->text());
     info.insert("productSecret",ui->lineEdit_ps->text());
+    info.insert("otaInvt", ui->spinBox_otaPollInterval->value());
     if (ui->comboBox_report->currentText() == tr("变化上报"))
     {
         info.insert("report","变化上报");

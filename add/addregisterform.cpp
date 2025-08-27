@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QMouseEvent>
 #include <QTableWidgetItem>
 #include <QPainter>
-
+#include <QTabWidget>
 addRegisterForm::addRegisterForm(QMap<QString,QVariant> info,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::addRegisterForm)
@@ -303,18 +303,71 @@ void addRegisterForm::modRegListResultSlot(QString oldName,QString newName,QMap<
         {
             key = "dev/"+tab2->tabText(tab2->currentIndex())+"/register/离散量/";
         }
-//        QString key = "dev/"+tab2->tabText(tab2->currentIndex())+"/register/"+tab1->tabText(tab1->currentIndex())+"/";
+//      QString key = "dev/"+tab2->tabText(tab2->currentIndex())+"/register/"+tab1->tabText(tab1->currentIndex())+"/";
         QMap<QString,QVariant> oldInfo = toolkit.readFormConfig(key+oldName);
         toolkit.removeFormConfig(key+oldName);
         toolkit.writeFormConfig(key+newName,oldInfo);    
     }
 }
 
+void addRegisterForm::addTtlvNumBit8Slot(bool flag)
+{
+    qDebug() << __FUNCTION__;
+    Q_UNUSED(flag);
+    QObject *obj = toolkit.findParent(this,nullptr,"MainWindow");
+    Form *ttlvForm = (Form *)obj->findChild<Form *>(tr("添加功能"));
+    QObject *currBox = toolkit.findParent(sender(),nullptr,"ttlvWidget");
+    addTtlv *page;
+    QMap<QString,QVariant> info;
+    QLabel *label = currBox->findChild<QLabel *>();
+    QString key;
+    if(label)
+    {
+        info.insert("type","数值");
+        info.insert("numType","8位有符号整形");
+        info.insert("increment",0);
+        info.insert("multiple",1);
+        QString name = label->text();
+        QTabWidget *tab1 = (QTabWidget *)toolkit.findParent(currBox,"QTabWidget",nullptr);
+        QTabWidget *tab2 = (QTabWidget *)toolkit.findParent(tab1,"QTabWidget",nullptr);
+        PreQTableWidget *table = (PreQTableWidget *)toolkit.findParent(currBox,"PreQTableWidget",nullptr);
+        if (tab1->tabText(tab1->currentIndex()) == tr("保持寄存器"))
+        {
+            key = "dev/"+tab2->tabText(tab2->currentIndex())+"/register/保持寄存器/"+table->objectName()+"/"+name;
+        }
+        else if (tab1->tabText(tab1->currentIndex()) == tr("输入寄存器"))
+        {
+            key = "dev/"+tab2->tabText(tab2->currentIndex())+"/register/输入寄存器/"+table->objectName()+"/"+name;
+        }
+    }
+    QMap<QString,QVariant> peerInfo = toolkit.readFormConfig(key);
+    QMap<QString,QVariant> attrInfo = peerInfo.value("attr").toMap();
+    if(attrInfo.isEmpty())
+    {
+        return;
+    }
+    if(attrInfo.find("HALBytes").value() == "低8位")
+    {
+        info.insert("HALBytes","高8位");
+    }
+    else if(attrInfo.find("HALBytes").value() == "高8位")
+    {
+        info.insert("HALBytes","低8位");
+    }
+    page = new addTtlv(currBox,REG_ADD,"",info,BIT_SHOW);
+    /* 把数据添加到功能列表 */
+    connect(page,SIGNAL(addResultSignal(QString,QMap<QString,QVariant>)),ttlvForm,SLOT(addTtlvResultSlot(QString,QMap<QString,QVariant>)));
+    connect(page,SIGNAL(addRegListSignal(QObject *,QString,QMap<QString,QVariant>,int,bool)),this,SLOT(addRegResultSlot(QObject *,QString,QMap<QString,QVariant>,int,bool)));
+    page->show();
+}
+
+
 /*
     func:弹出添加功能页面
 */
 void addRegisterForm::addTtlvSlot(bool flag)
 {
+    qDebug() << __FUNCTION__;
     Q_UNUSED(flag);
     QObject *obj = toolkit.findParent(this,nullptr,"MainWindow");
     Form *ttlvForm = (Form *)obj->findChild<Form *>(tr("添加功能"));
@@ -372,6 +425,11 @@ void addRegisterForm::addRegResultSlot(QObject *obj,QString name,QMap<QString,QV
     }
     else if("数值" == info.find("type").value())
     {
+        qDebug()<<"数值numType"<<info.find("numType").value();
+        if(info.find("numType").value().toString().indexOf("8位")!=-1)
+        {
+            labelNew->setMinimumWidth(20);
+        }
         labelNew->setStyleSheet("background-color:rgb(117,121,74);");
     }
     else if("字节流" == info.find("type").value())
@@ -442,23 +500,59 @@ void addRegisterForm::addRegResultSlot(QObject *obj,QString name,QMap<QString,QV
             {
                 len = 4;
             }
-        }
+        }            
         /* 设置合并单元格 */
-        table->setSpan(row,column,len,1);
-        /* 删除旧控件 */
-        for(int i=0;i<len;i++)
+
+        if(info.find("numType").value().toString().indexOf("8位") >= 0)
         {
-            table->removeCellWidget(row+i,column);
+            qDebug()<<"8位控件"<<box->pos();
+            QWidget *box_old =table->cellWidget(row,column);
+            if(box_old && box_old->layout() && box_old->layout()->count() > 1)
+            {
+                QHBoxLayout *hboxLayout = qobject_cast<QHBoxLayout *>(box_old->layout());
+                hboxLayout->addWidget(labelNew);
+                QPushButton *button = box_old->findChild<QPushButton *>();
+                if(button)
+                {
+                    hboxLayout->removeWidget(button);
+                    button->setParent(nullptr);
+                    button->deleteLater();
+                }
+            }
+            else
+            {
+                /* 增加新控件 */
+                QWidget *box_new = new QWidget();
+                box_new->setObjectName("ttlvWidget");
+                QHBoxLayout *listLayout = new QHBoxLayout(box_new);
+                QString bitname = info.find("HALBytes").value().toString();
+                listLayout->addWidget(labelNew);
+                QPushButton * addTtvlButton = new QPushButton("+");
+                connect(addTtvlButton,SIGNAL(clicked(bool)),this,SLOT(addTtlvNumBit8Slot(bool)));
+                listLayout->addWidget(addTtvlButton);
+                listLayout->setContentsMargins(0,0,0,0);
+                box_new->setLayout(listLayout);
+                table->setCellWidget(row,column,box_new);
+            }
         }
-        /* 增加新控件 */
-        QWidget *box_new = new QWidget();
-        box_new->setObjectName("ttlvWidget");
-        QHBoxLayout *listLayout = new QHBoxLayout(box_new);
-        listLayout->addWidget(labelNew);
-        listLayout->setContentsMargins(0,0,0,0);
-        box_new->setLayout(listLayout);
-        table->setCellWidget(row,column,box_new);
-        qDebug()<<"恢复到列表中"<<row<<column<<box_new;
+        else
+        {
+            table->setSpan(row,column,len,1);
+            /* 删除旧控件 */
+            for(int i=0;i<len;i++)
+            {
+                table->removeCellWidget(row+i,column);
+            }
+            /* 增加新控件 */
+            QWidget *box_new = new QWidget();
+            box_new->setObjectName("ttlvWidget");
+            QHBoxLayout *listLayout = new QHBoxLayout(box_new);
+            listLayout->addWidget(labelNew);
+            listLayout->setContentsMargins(0,0,0,0);
+            box_new->setLayout(listLayout);
+            table->setCellWidget(row,column,box_new);
+            qDebug()<<"恢复到列表中"<<row<<column<<box_new;
+        }
     }
     else
     {
@@ -678,8 +772,7 @@ void addRegisterForm::slotActionModify()
             {
                 key = "dev/"+tab2->tabText(tab2->currentIndex())+"/register/离散量/"+table->objectName();
             }
-
-//            key = "dev/"+tab2->tabText(tab2->currentIndex())+"/register/"+tab1->tabText(tab1->currentIndex())+"/"+table->objectName();
+//          key = "dev/"+tab2->tabText(tab2->currentIndex())+"/register/"+tab1->tabText(tab1->currentIndex())+"/"+table->objectName();
             QMap<QString,QVariant> info = toolkit.readFormConfig(key);
             qDebug()<<"找到对应的列表"<<table->objectName()<<info;
             addRegister *page = new addRegister(table->objectName(),info,table);
@@ -688,7 +781,6 @@ void addRegisterForm::slotActionModify()
             break;
         }
     }
-
 }
 
 

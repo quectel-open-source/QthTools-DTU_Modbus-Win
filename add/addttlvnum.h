@@ -39,8 +39,12 @@ private slots:
     void on_doubleSpinBox_multiple_valueChanged(double arg1);
     void on_doubleSpinBox_increment_valueChanged(double arg1);
     void on_register_value_min_valueChanged(double arg1);
+
     void numericalLimits();
-    bool stringIsInt(QString value);
+    bool stringIsInt(QString value);    
+    void on_FlagCondition1_clicked(bool checked);
+
+    void on_FlagCondition2_clicked(bool checked);
 
 private:
     Ui::addTtlvNum *ui;

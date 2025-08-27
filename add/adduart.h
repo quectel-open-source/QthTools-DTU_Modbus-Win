@@ -38,11 +38,14 @@ private:
     Ui::addUart *ui;
     QString oldName;
     QObject *sourceObj;
+    QString m_baudrate;
 
 private slots:
     void on_buttonBox_accepted();
 
     void on_buttonBox_rejected();
+    void slot_baudrateIndexChange(int baudrateIndex);
+    void slot_baudrateChange(QString baudrateText);
 
 signals:
     void addResultSignal(QString,QMap<QString,QVariant>);

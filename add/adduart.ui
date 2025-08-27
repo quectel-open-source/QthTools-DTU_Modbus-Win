@@ -7,38 +7,66 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>450</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>添加串口 </string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="3" column="1">
-    <widget class="QComboBox" name="comboBox_stopBits">
-     <item>
-      <property name="text">
-       <string>1</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>1.5</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>2</string>
-      </property>
-     </item>
-    </widget>
-   </item>
    <item row="0" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>端口号</string>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>端口号</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_13">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;实际DTU接入从机设备的端口号。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>6000000</number>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	image: url(:/img/tips.png);
+}
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item row="0" column="1">
     <widget class="MySpinBox" name="spinBox_port">
@@ -54,100 +82,72 @@
     </widget>
    </item>
    <item row="1" column="0">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>波特率</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>数据位</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="1">
-    <widget class="QComboBox" name="comboBox_parity">
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
      <item>
-      <property name="text">
-       <string>None</string>
-      </property>
+      <widget class="QLabel" name="label_2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>波特率</string>
+       </property>
+      </widget>
      </item>
      <item>
-      <property name="text">
-       <string>Even</string>
-      </property>
+      <widget class="QLabel" name="label_14">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;表示每秒钟传送的字节的个数，常用有9600, 115200等，需与从机设备相匹配。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>6000000</number>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	image: url(:/img/tips.png);
+}
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
      </item>
-     <item>
-      <property name="text">
-       <string>Odd</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Mark</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Space</string>
-      </property>
-     </item>
-    </widget>
-   </item>
-   <item row="5" column="0">
-    <widget class="QLabel" name="label_7">
-     <property name="text">
-      <string>轮询周期(s)</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="1">
-    <widget class="MySpinBox" name="spinBox_pollingInterval">
-     <property name="minimum">
-      <number>1</number>
-     </property>
-     <property name="maximum">
-      <number>1000000000</number>
-     </property>
-     <property name="value">
-      <number>60</number>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="1">
-    <widget class="MySpinBox" name="spinBox_cmdInterval">
-     <property name="minimum">
-      <number>150</number>
-     </property>
-     <property name="maximum">
-      <number>1000000000</number>
-     </property>
-     <property name="value">
-      <number>500</number>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>停止位</string>
-     </property>
-    </widget>
-   </item>
-   <item row="8" column="1">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
+    </layout>
    </item>
    <item row="1" column="1">
     <widget class="QComboBox" name="comboBox_baudrate">
      <property name="currentText">
-      <string>9600</string>
+      <string>110</string>
      </property>
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <item>
+      <property name="text">
+       <string>自定义</string>
+      </property>
+     </item>
      <item>
       <property name="text">
        <string>110</string>
@@ -275,6 +275,60 @@
      </item>
     </widget>
    </item>
+   <item row="2" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_6">
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>数据位</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_15">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;衡量通信中有效数据的参数，默认为8个，需与从机设备相匹配。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>6000000</number>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	image: url(:/img/tips.png);
+}
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
    <item row="2" column="1">
     <widget class="QComboBox" name="comboBox_dataBits">
      <property name="currentIndex">
@@ -302,21 +356,418 @@
      </item>
     </widget>
    </item>
+   <item row="3" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_7">
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>停止位</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_17">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;可设置为1位、1.5位或2位，标志着传输一个字符的结束，需与从机设备相匹配。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>6000000</number>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	image: url(:/img/tips.png);
+}
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="1">
+    <widget class="QComboBox" name="comboBox_stopBits">
+     <item>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>1.5</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2</string>
+      </property>
+     </item>
+    </widget>
+   </item>
    <item row="4" column="0">
-    <widget class="QLabel" name="label_5">
-     <property name="text">
-      <string>校验位</string>
+    <layout class="QHBoxLayout" name="horizontalLayout_8">
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>校验位</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_16">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;分为&amp;quot;None&amp;quot;（无校验）、&amp;quot;Even&amp;quot;（偶校验）、&amp;quot;Odd&amp;quot;（奇校验）、&amp;quot;Mark&amp;quot;（Mark校验）和&amp;quot;Space&amp;quot;（Space校验），默认为&amp;quot;None&amp;quot;，需与从机设备相匹配。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>6000000</number>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	image: url(:/img/tips.png);
+}
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="4" column="1">
+    <widget class="QComboBox" name="comboBox_parity">
+     <item>
+      <property name="text">
+       <string>None</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Even</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Odd</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Mark</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Space</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_7">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>慢轮询间隔(s)</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_10">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DTU设备向从机设备轮询发送Modbus协议周期。例如每60秒向从机设备读取一次温湿度值。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>6000000</number>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	image: url(:/img/tips.png);
+}
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="5" column="1">
+    <widget class="MySpinBox" name="spinBox_slowPollingInterval">
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <number>1000000000</number>
+     </property>
+     <property name="value">
+      <number>60</number>
      </property>
     </widget>
    </item>
    <item row="6" column="0">
-    <widget class="QLabel" name="label_6">
-     <property name="text">
-      <string>命令间隔(ms)</string>
+    <layout class="QHBoxLayout" name="horizontalLayout_9">
+     <item>
+      <widget class="QLabel" name="label_9">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>快轮询间隔(s)</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_18">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DTU设备向从机设备轮询发送Modbus协议周期。例如每60秒向从机设备读取一次温湿度值。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>6000000</number>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	image: url(:/img/tips.png);
+}
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="6" column="1">
+    <widget class="MySpinBox" name="spinBox_fastPollingInterval">
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <number>1000000000</number>
+     </property>
+     <property name="value">
+      <number>60</number>
      </property>
     </widget>
    </item>
+   <item row="7" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="label_6">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>命令间隔(ms)</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_11">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;因可能存在黏包情况，需设置DTU向从机设备发送每条Modbus协议的最小时间间隔。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>6000000</number>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	image: url(:/img/tips.png);
+}
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
    <item row="7" column="1">
+    <widget class="MySpinBox" name="spinBox_cmdInterval">
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <number>1000000000</number>
+     </property>
+     <property name="value">
+      <number>500</number>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLabel" name="label_8">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>重发次数</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_12">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;当DTU设备发送Modbus协议问询数据帧时，子设备（传感器）端未在命令间隔时间内响应，则DTU会再次重新发送，为 0 时则不重新发送。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>6000000</number>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	image: url(:/img/tips.png);
+}
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="8" column="1">
     <widget class="MySpinBox" name="spinBox_resendCount">
      <property name="maximum">
       <number>9</number>
@@ -326,10 +777,10 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="0">
-    <widget class="QLabel" name="label_8">
-     <property name="text">
-      <string>重发次数</string>
+   <item row="9" column="1">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>

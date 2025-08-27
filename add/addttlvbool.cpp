@@ -25,6 +25,7 @@ addTtlvBool::addTtlvBool(QMap<QString,QVariant> info,int bitAddr,bool bitEnable[
     ui(new Ui::addTtlvBool)
 {
     ui->setupUi(this);
+    ui->label_writeToolTip->hide();
     pButtonGroup.addButton(ui->checkBox_0,0);
     pButtonGroup.addButton(ui->checkBox_1,1);
     pButtonGroup.addButton(ui->checkBox_2,2);
@@ -150,6 +151,18 @@ addTtlvBool::addTtlvBool(QMap<QString,QVariant> info,int bitAddr,bool bitEnable[
 addTtlvBool::~addTtlvBool()
 {
     delete ui;
+}
+
+void addTtlvBool::showToolTipSlot(void)
+{
+    qInfo() << __FUNCTION__;
+    ui->label_writeToolTip->show();
+}
+
+void addTtlvBool::hideToolTipSlot(void)
+{
+    qInfo() << __FUNCTION__;
+    ui->label_writeToolTip->hide();
 }
 
 void addTtlvBool::setBitEnable(int bit,bool flag)

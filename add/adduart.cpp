@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <qDebug>
 #include <preqtablewidget.h>
 #include <QMessageBox>
+#include <QLineEdit>
+#include <QRegExp>
+#include <QRegExpValidator>
 
 addUart::addUart(QObject *obj,QString name,QMap<QString,QVariant> info,QWidget *parent) :
     QWidget(parent),
@@ -38,18 +41,41 @@ addUart::addUart(QObject *obj,QString name,QMap<QString,QVariant> info,QWidget *
     {
         oldName = name;
         qDebug()<<"uartInfo"<<info;
+        QString baudRate =  info.find("baudrate").value().toString();
+        bool isCustom = false;
         ui->spinBox_port->setValue(name.toInt());
-        ui->comboBox_baudrate->setCurrentText(info.find("baudrate").value().toString());
+        for (int i = 1; i < ui->comboBox_baudrate->count(); i++)
+        {
+            if (baudRate == ui->comboBox_baudrate->itemText(i))
+            {
+                isCustom = true;
+            }
+        }
+        if (isCustom)
+        {
+            ui->comboBox_baudrate->setCurrentText(baudRate);
+        }
+        else
+        {
+            QLineEdit *lineEdit = new QLineEdit(this);
+            QRegExpValidator *validator = new QRegExpValidator(QRegExp("^([0-9]{1,8})$"), this);
+            lineEdit->setValidator(validator);
+            ui->comboBox_baudrate->setLineEdit(lineEdit);
+            lineEdit->setText(baudRate);
+        }
         ui->comboBox_dataBits->setCurrentText(info.find("dataBits").value().toString());
         ui->comboBox_stopBits->setCurrentText(info.find("stopBits").value().toString());
         ui->comboBox_parity->setCurrentText(info.find("parity").value().toString());
-        ui->spinBox_pollingInterval->setValue(info.find("pollingInterval").value().toInt());
+        ui->spinBox_slowPollingInterval->setValue(info.find("slowPollingInterval").value().toInt());
+        ui->spinBox_fastPollingInterval->setValue(info.find("fastPollingInterval").value().toInt());
         ui->spinBox_cmdInterval->setValue(info.find("cmdInterval").value().toInt());
         if(info.find("resendCount") != info.end())
         {
             ui->spinBox_resendCount->setValue(info.find("resendCount").value().toInt());
         }
     }
+    connect(ui->comboBox_baudrate, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &addUart::slot_baudrateIndexChange);
+    connect(ui->comboBox_baudrate, &QComboBox::currentTextChanged, this, &addUart::slot_baudrateChange);
 }
 
 addUart::~addUart()
@@ -73,12 +99,21 @@ void addUart::on_buttonBox_accepted()
             }
         }
     }
+    if (ui->comboBox_baudrate->currentText().isEmpty())
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Critical);
+        msgBox.setText(tr("自定义波特率不能为空"));
+        msgBox.exec();
+        return;
+    }
     QMap<QString,QVariant> info;
     info.insert("baudrate",ui->comboBox_baudrate->currentText());
     info.insert("dataBits",ui->comboBox_dataBits->currentText());
     info.insert("stopBits",ui->comboBox_stopBits->currentText());
     info.insert("parity",ui->comboBox_parity->currentText());
-    info.insert("pollingInterval",ui->spinBox_pollingInterval->value());
+    info.insert("slowPollingInterval",ui->spinBox_slowPollingInterval->value());
+    info.insert("fastPollingInterval",ui->spinBox_fastPollingInterval->value());
     info.insert("cmdInterval",ui->spinBox_cmdInterval->value());
     info.insert("resendCount",ui->spinBox_resendCount->value());
     if(oldName.length())
@@ -97,4 +132,27 @@ void addUart::on_buttonBox_accepted()
 void addUart::on_buttonBox_rejected()
 {
     this->close();
+}
+
+void addUart::slot_baudrateIndexChange(int baudrateIndex)
+{
+    qInfo() << __FUNCTION__;
+    if (0 == baudrateIndex)
+    {
+        QLineEdit *lineEdit = new QLineEdit(this);
+        QRegExpValidator *validator = new QRegExpValidator(QRegExp("^([0-9]{1,8})$"), this);
+        lineEdit->setValidator(validator);
+        ui->comboBox_baudrate->setLineEdit(lineEdit);
+        lineEdit->clear();
+    }
+    else
+    {
+        ui->comboBox_baudrate->setEditable(false);
+    }
+}
+
+void addUart::slot_baudrateChange(QString baudrateText)
+{
+    qInfo() << __FUNCTION__;
+    this->m_baudrate = baudrateText;
 }

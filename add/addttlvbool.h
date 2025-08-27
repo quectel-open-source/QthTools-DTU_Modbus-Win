@@ -37,6 +37,10 @@ public:
     QButtonGroup pButtonGroup;
     QButtonGroup radioGroup;
 
+public slots:
+    void showToolTipSlot(void);
+    void hideToolTipSlot(void);
+
 private slots:
     void on_checkBox_event_clicked(bool checked);
 

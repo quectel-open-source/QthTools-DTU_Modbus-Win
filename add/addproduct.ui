@@ -7,45 +7,65 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>305</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>添加产品信息</string>
   </property>
+  <property name="toolTip">
+   <string/>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>productKey</string>
-     </property>
-    </widget>
+   <item row="0" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_6">
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>产品名称</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_12">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DTU产品所具有的产品命名。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>6000000</number>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	image: url(:/img/tips.png);
+}
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>上报方式</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="QLineEdit" name="lineEdit_ps">
-     <property name="text">
-      <string/>
-     </property>
-     <property name="maxLength">
-      <number>16</number>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="1">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1">
+   <item row="0" column="2">
     <widget class="QLineEdit" name="lineEdit_name">
      <property name="text">
       <string/>
@@ -55,7 +75,55 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="1">
+   <item row="1" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>productKey</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_7">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;在开发者中心创建产品生成的 ProductKey。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>6000000</number>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	image: url(:/img/tips.png);
+}
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="2">
     <widget class="QLineEdit" name="lineEdit_pk">
      <property name="text">
       <string/>
@@ -65,7 +133,174 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="1">
+   <item row="2" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>productSecret</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_11">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;在开发者中心创建产品生成的 ProductSecret。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>6000000</number>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	image: url(:/img/tips.png);
+}
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="2">
+    <widget class="QLineEdit" name="lineEdit_ps">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="maxLength">
+      <number>16</number>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>OTA轮询间隔（ 小时）</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_8">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;在OTA轮询从机完成后，等待下一次轮询的时间间隔；&lt;/p&gt;&lt;p&gt;默认24小时，范围 (0-24) 小时，0为不进行OTA轮询。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>6000000</number>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	image: url(:/img/tips.png);
+}
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="2">
+    <widget class="QSpinBox" name="spinBox_otaPollInterval">
+     <property name="suffix">
+      <string/>
+     </property>
+     <property name="maximum">
+      <number>24</number>
+     </property>
+     <property name="value">
+      <number>24</number>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>上报方式</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_9">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;全部上报&lt;/span&gt;： 设备每次轮询到的数据都会直接上报到开发者中心；&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;变化上报&lt;/span&gt;： 设备每次轮询到的数据与上次数据进行比较，发生变化才上报到开发者中心。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>6000000</number>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	image: url(:/img/tips.png);
+}
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="4" column="2">
     <widget class="QComboBox" name="comboBox_report">
      <item>
       <property name="text">
@@ -79,28 +314,55 @@
      </item>
     </widget>
    </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>产品名称</string>
-     </property>
-    </widget>
+   <item row="5" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>设备类型</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_10">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>12</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;直连版&lt;/span&gt;： modbus从机设备和网关共用产品信息，以一个整体设备在IoT平台展示；&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;网关版&lt;/span&gt;： modbus从机设备拥有独立的产品信息和设备信息，在IoT平台单独展示。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>6000000</number>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	image: url(:/img/tips.png);
+}
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>productSecret</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0">
-    <widget class="QLabel" name="label_5">
-     <property name="text">
-      <string>设备类型</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="1">
+   <item row="5" column="2">
     <widget class="QComboBox" name="comboBox_devType">
      <item>
       <property name="text">
@@ -112,6 +374,13 @@
        <string>网关版</string>
       </property>
      </item>
+    </widget>
+   </item>
+   <item row="6" column="1" colspan="2">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
     </widget>
    </item>
   </layout>

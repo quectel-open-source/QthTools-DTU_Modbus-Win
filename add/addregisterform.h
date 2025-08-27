@@ -50,6 +50,7 @@ private:
 
 private slots:
     void addTtlvSlot(bool flag);
+    void addTtlvNumBit8Slot(bool flag);
     void on_pushButton_clicked();
     void addRegResultSlot(QObject *currBox,QString name,QMap<QString,QVariant> info,int bitAddr,bool isSave);
     void tableContextMenuRequested(const QPoint &pos);

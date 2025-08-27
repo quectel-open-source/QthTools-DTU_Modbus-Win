@@ -23,73 +23,6 @@
    <property name="rightMargin">
     <number>0</number>
    </property>
-   <item row="1" column="0" colspan="4">
-    <widget class="QCheckBox" name="checkBox_event">
-     <property name="text">
-      <string>配置事件</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="3">
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>124</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="label_type">
-     <property name="text">
-      <string>事件类型</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="2">
-    <widget class="QRadioButton" name="radioButton_true">
-     <property name="text">
-      <string>true</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label_name">
-     <property name="minimumSize">
-      <size>
-       <width>75</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>75</width>
-       <height>16777215</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>事件名称</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0">
-    <widget class="QLabel" name="label_condition">
-     <property name="text">
-      <string>触发条件</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1" colspan="3">
-    <widget class="QLineEdit" name="event_name">
-     <property name="maxLength">
-      <number>64</number>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="0" colspan="4">
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
@@ -719,12 +652,90 @@ QCheckBox::indicator:disabled{
      </item>
     </widget>
    </item>
+   <item row="6" column="3">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>124</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_name">
+     <property name="minimumSize">
+      <size>
+       <width>75</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>75</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>事件名称</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1" colspan="3">
+    <widget class="QLineEdit" name="event_name">
+     <property name="maxLength">
+      <number>64</number>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="2">
+    <widget class="QRadioButton" name="radioButton_true">
+     <property name="text">
+      <string>true</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="4">
+    <widget class="QCheckBox" name="checkBox_event">
+     <property name="text">
+      <string>配置事件</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_type">
+     <property name="text">
+      <string>事件类型</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_condition">
+     <property name="text">
+      <string>触发条件</string>
+     </property>
+    </widget>
+   </item>
    <item row="4" column="1">
     <widget class="QRadioButton" name="radioButton_false">
      <property name="text">
       <string>false</string>
      </property>
      <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1" colspan="3">
+    <widget class="QLabel" name="label_writeToolTip">
+     <property name="text">
+      <string>提示：若读写类型为只写或读写，则平台下行数据时可能会导致其他位Bit数据不同步情况，建议写类型仅用一位Bit。
+</string>
+     </property>
+     <property name="wordWrap">
       <bool>true</bool>
      </property>
     </widget>

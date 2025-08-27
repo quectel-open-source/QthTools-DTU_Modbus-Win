@@ -62,6 +62,9 @@ private:
     bool bitEnable[16];
     int addType;
     toolKit toolkit;
+    bool isHoldingReg = false;
+    bool isBoolType = false;
+    bool isWriteType = false;
 
 private slots:
     void on_buttonBox_accepted();
@@ -75,6 +78,8 @@ signals:
     void addRegListSignal(QObject *,QString,QMap<QString,QVariant>,int,bool);
     void modRegListSignal(QObject *,QString,QString,QMap<QString,QVariant>);
     void modBitSignal(QObject *,QString,int,int);
+    void showToolTipSignal(void);
+    void hideToolTipSignal(void);
 };
 
 #endif // ADDTTLV_H
